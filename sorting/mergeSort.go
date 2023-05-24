@@ -1,37 +1,39 @@
 package sorting
 
-func MergeSorting(arr []int, start int, end int) []int {
-	if end > start {
-		i := (start + end) / 2
-		arr = MergeSorting(arr, start, i)
-		arr = MergeSorting(arr, i+1, end)
-		arr = Merge(arr[i:], arr[:i], i)
+func MergeSorting(arr []int) []int {
+	if len(arr) <= 1 {
+		return arr
 	}
-	return arr
+
+	mid := len(arr) / 2
+	left := MergeSorting(arr[:mid])
+	right := MergeSorting(arr[mid:])
+
+	return merge(left, right)
 }
-func Merge(arr1, arr2 []int, i int) []int {
-	var sorted []int
-	m := 0
-	k := 0
-	arrLen := len(arr1) + len(arr2)
-	for i := 0; i < arrLen; i++ {
-		if m >= len(arr1) {
-			sorted = append(sorted, arr2[k:]...)
-			return sorted
-		} else if k >= len(arr2) {
-			sorted = append(sorted, arr1[m:]...)
-			return sorted
-		}
-		if arr1[m] < arr2[k] {
-			sorted = append(sorted, arr1[m])
-			m = m + 1
-			continue
-		}
-		if arr1[m] > arr2[k] {
-			sorted = append(sorted, arr2[k])
-			k = k + 1
-			continue
+func merge(left, right []int) []int {
+	result := make([]int, 0, len(left)+len(right))
+
+	i, j := 0, 0
+	for i < len(left) && j < len(right) {
+		if left[i] < right[j] {
+			result = append(result, left[i])
+			i++
+		} else {
+			result = append(result, right[j])
+			j++
 		}
 	}
-	return sorted
+
+	for i < len(left) {
+		result = append(result, left[i])
+		i++
+	}
+
+	for j < len(right) {
+		result = append(result, right[j])
+		j++
+	}
+
+	return result
 }
