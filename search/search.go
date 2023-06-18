@@ -9,3 +9,27 @@ func LinearSearch(arr []int, number int) (foundNumber int) {
 	}
 	return
 }
+
+func BinarySearch(arr []int, number int) (foundNumber int) {
+	index := len(arr) / 2
+	rightArr := arr[:index]
+	leftArr := arr[index:]
+	if len(rightArr) == 1 && rightArr[0] == number {
+		foundNumber = rightArr[0]
+		return
+	}
+	if len(leftArr) == 1 && leftArr[0] == number || leftArr[0] == number {
+		foundNumber = leftArr[0]
+		return
+	}
+	if rightArr[len(rightArr)-1] == number {
+		foundNumber = rightArr[len(rightArr)-1]
+	}
+	if rightArr[len(rightArr)-1] > number {
+		foundNumber = BinarySearch(rightArr, number)
+	}
+	if leftArr[0] < number {
+		foundNumber = BinarySearch(leftArr, number)
+	}
+	return
+}

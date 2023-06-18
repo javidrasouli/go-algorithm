@@ -10,3 +10,12 @@ func TestLinearSearch(t *testing.T) {
 		t.Errorf("found number must be %q, but is %q", numberToSearch, foundNumber)
 	}
 }
+
+func TestBinarySearch(t *testing.T) {
+	mainArr := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+	numberToSearch := 8
+	foundNumber := BinarySearch(mainArr, numberToSearch)
+	if numberToSearch != foundNumber {
+		t.Errorf("found number must be %q, but is %q", numberToSearch, foundNumber)
+	}
+}
