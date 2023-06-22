@@ -33,3 +33,23 @@ func BinarySearch(arr []int, number int) (foundNumber int) {
 	}
 	return
 }
+
+func DepthFirstSearch(graph map[string][]string, startNode string, word string) (found string) {
+	if startNode == word {
+		found = startNode
+		return
+	}
+	for _, s := range graph[startNode] {
+		if s == word {
+			found = s
+			return
+		}
+		if s != startNode {
+			found = DepthFirstSearch(graph, s, word)
+			if found == word {
+				return
+			}
+		}
+	}
+	return
+}
